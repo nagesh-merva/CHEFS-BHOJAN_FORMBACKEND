@@ -6,7 +6,7 @@ from email.message import EmailMessage
 import os
 
 app = Flask(__name__)
-# app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'a_secure_default_key')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'a_secure_default_key')
 
 CORS(app, supports_credentials=True, allow_headers="*", origins="*", methods=["OPTIONS", "POST"])
 CORS(app, resources={r"/api/*": {"origins": "*"}}, supports_credentials=True)
