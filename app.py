@@ -27,12 +27,25 @@ def save_form_data():
     data = request.json
     print("Received form data:", data)
     
+    existing_contact = Details.find_one({
+        '$or': [
+            {'name': data['name']},
+            {'phone': data['phone']}
+        ]
+    })
+    
+    if existing_contact:
+        print('data not added')
+        return jsonify({'status': 'exists', 'message': 'Contact already exists, Try asking your Fam and Friends to get more Discount'}), 200
+    
     new_contact = {
-        'name' :data['name'],
-        'phone':data['phone'],
+        'name': data['name'],
+        'phone': data['phone'],
         'date_created': datetime.utcnow()
     }
+    print('data added')
     Details.insert_one(new_contact)
     print(data)
+    
     return jsonify({'status': 'success', 'message': 'Form data saved successfully'}), 200
 
