@@ -44,6 +44,7 @@ def save_form_data():
     new_contact = {
         'name': data['name'],
         'phone': data['phone'],
+        'redeemed': False,
         'date_created': datetime.utcnow()
     }
     print('data added')
