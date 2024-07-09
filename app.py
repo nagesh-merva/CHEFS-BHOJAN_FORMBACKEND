@@ -30,13 +30,7 @@ def save_form_data():
     data = request.json
     print("Received form data:", data)
     
-    existing_contact = Details.find_one({
-        '$or': [
-            {'name': data['name']},
-            {'phone': data['phone']}
-        ]
-    })
-    
+    existing_contact = Details.find_one({'phone': data['phone']})
     if existing_contact:
         print('data not added')
         return jsonify({'status': 'exists', 'message': 'Contact already exists, Try asking your Fam and Friends to get more Discount'}), 200
